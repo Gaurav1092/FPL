@@ -16,3 +16,14 @@ extension XCTestCase {
         }
     }
 }
+
+extension XCTestCase {
+    /// A cache in a fresh temporary directory that is deleted when the test finishes.
+    func makeTemporaryCache() -> FileBootstrapCache {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        addTeardownBlock {
+            try? FileManager.default.removeItem(at: directory)
+        }
+        return FileBootstrapCache(fileURL: directory.appendingPathComponent("bootstrap-static.json"))
+    }
+}
