@@ -22,7 +22,7 @@ final class TeamsViewModel {
         didSet { onStateChange?(state) }
     }
 
-    var onStateChange: (@MainActor (State) -> Void)?
+    var onStateChange: ((State) -> Void)?
 
     private let repository: any LeagueRepository
     private var isFetching = false

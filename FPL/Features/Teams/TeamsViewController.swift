@@ -159,5 +159,7 @@ final class TeamsViewController: UIViewController {
 extension TeamsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        guard let teamID = dataSource.itemIdentifier(for: indexPath), let team = teamsByID[teamID] else { return }
+        navigationController?.pushViewController(SquadViewController(team: team), animated: true)
     }
 }
