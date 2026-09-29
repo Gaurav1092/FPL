@@ -10,11 +10,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
 
-        let rootViewController = UIViewController()
-        rootViewController.view.backgroundColor = .systemBackground
+        let repository = FPLRepository(
+            apiClient: FPLAPIClient(httpClient: URLSession.shared),
+            cache: .makeDefault()
+        )
+        let teamsViewController = TeamsViewController(viewModel: TeamsViewModel(repository: repository))
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: rootViewController)
+        window.rootViewController = UINavigationController(rootViewController: teamsViewController)
         window.makeKeyAndVisible()
         self.window = window
     }
